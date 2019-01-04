@@ -1,0 +1,10 @@
+name: Man10OneTimeItem
+version: ${project.version}
+main: red.man10.man10onetimeiitem.Man10OneTimeItem
+commands:
+  moti:
+    description: show help
+    usage: /<command>
+    permission:
+      moti.*:
+        default: OP
