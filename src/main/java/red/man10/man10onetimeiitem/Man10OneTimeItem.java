@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 public final class Man10OneTimeItem extends JavaPlugin {
 
-    String prefix = "[§dM§f.§aO§f.§dT§f.§aI]";
+    String prefix = "[§dM§f.§aO§f.§dT§f.§aI§r]";
     HashMap<String, BoxInfo> boxdata = new HashMap<String,BoxInfo>();
 
     @Override
@@ -151,7 +151,7 @@ public final class Man10OneTimeItem extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         getLogger().info("start:Man10OneTimeItem");
-        getServer().getPluginManager().registerEvents(new Events(), this);
+        getServer().getPluginManager().registerEvents(new Events(this), this);
 
     }
 

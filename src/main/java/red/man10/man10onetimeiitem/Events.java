@@ -12,29 +12,42 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Map;
 
 public class Events implements Listener {
-    Man10OneTimeItem moti = new Man10OneTimeItem();
+    Man10OneTimeItem moti;
+    public Events(Man10OneTimeItem moti){
+        this.moti = moti;
+    }
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent e){
         BoxInfo boxinfo = new BoxInfo();
         Player p = e.getPlayer();
-        p.sendMessage("aaaaa");
-        Boolean flag = false;
+        boolean flag = false;
         if(e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction()==Action.RIGHT_CLICK_BLOCK){
+            ItemStack items = p.getInventory().getItemInMainHand() ;
             for(Map.Entry<String, BoxInfo> entry : moti.boxdata.entrySet()){
-                if(p.getInventory().getItemInMainHand() == entry.getValue().boxItem){
-                    flag = true;
-                    e.setCancelled(true);
-                    boxinfo = entry.getValue();
-                    break;
+                ItemStack a = entry.getValue().boxItem;
+                if(items.getType() == a.getType()) {
+                    if (items.getItemMeta() == null || items.getItemMeta().toString().equalsIgnoreCase(a.getItemMeta().toString())) {
+                        flag = true;
+                        e.setCancelled(true);
+                        boxinfo = entry.getValue();
+                        break;
+                    }
                 }
             }
+
             if(flag){
                 if(countEmpty(p.getInventory()) < boxinfo.contentsItems.size()){
                     p.sendMessage(moti.prefix+"§cインベントリーを空けてください！");
                     return;
                 }
-                p.getInventory().getItemInMainHand().setAmount(p.getInventory().getItemInMainHand().getAmount()-1);
+                if(p.getInventory().getItemInMainHand().getAmount()!=1){
+                    p.getInventory().getItemInMainHand().setAmount(p.getInventory().getItemInMainHand().getAmount()-1);
+                }else {
+                    if (p.getInventory().getItemInMainHand().getAmount() != 1) {
+                        p.getInventory().setItemInMainHand(null);
+                    }
+                }
                 for(ItemStack giveitem:boxinfo.contentsItems){
                     p.getInventory().addItem(giveitem);
                 }
@@ -48,7 +61,7 @@ public class Events implements Listener {
     public int countEmpty (Inventory inv){
         int count =0;
         for(ItemStack invitem:inv){
-            if(invitem.getType() == Material.AIR){
+            if(invitem == null){
                 count++;
             }
         }
