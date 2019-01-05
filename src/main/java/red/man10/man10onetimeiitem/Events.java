@@ -59,9 +59,9 @@ public class Events implements Listener {
 
     public int countEmpty (Inventory inv){
         int count =0;
-        for(ItemStack invitem:inv){
-            Bukkit.broadcastMessage(invitem.toString());
-            if(invitem == null){
+        for(int i=0; i<inv.getSize(); i++){
+            Bukkit.broadcastMessage(inv.getItem(i).toString());
+            if(inv.getItem(i) == null){
                 count++;
             }
         }
