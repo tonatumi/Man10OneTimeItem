@@ -81,8 +81,10 @@ public final class Man10OneTimeItem extends JavaPlugin {
                         }catch (IllegalArgumentException a){
                             p.sendMessage(prefix+"§c消したいアイテムをリストの順番の数字で指定してください！");
                             p.sendMessage("§cエラー内容："+a);
+                            return true;
                         }
                         boxdata.put(args[1], boxinfo);
+                        p.sendMessage(prefix+"§aボックス名§6"+args[1]+"§aからアイテム番号"+"§6"+args[2]+"§aを削除しました！");
                         return true;
                     }else {
                         p.sendMessage(prefix+"§cそのボックス名は存在しません！");
