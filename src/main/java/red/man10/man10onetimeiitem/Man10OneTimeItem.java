@@ -76,13 +76,14 @@ public final class Man10OneTimeItem extends JavaPlugin {
                         return true;
                     }else if (boxdata.containsKey(args[1])){
                         BoxInfo boxinfo = boxdata.get(args[1]);
+                        int rnum;
                         try {
-                            boxinfo.contentsItems.remove(args[2]);
-                        }catch (IllegalArgumentException a){
+                            rnum = Integer.parseInt(args[2]);
+                        }catch (NumberFormatException n){
                             p.sendMessage(prefix+"§c消したいアイテムをリストの順番の数字で指定してください！");
-                            p.sendMessage("§cエラー内容："+a);
                             return true;
                         }
+                        boxdata.get(args[1]).contentsItems.remove(rnum);
                         boxdata.put(args[1], boxinfo);
                         p.sendMessage(prefix+"§aボックス名§6"+args[1]+"§aからアイテム番号"+"§6"+args[2]+"§aを削除しました！");
                         return true;
