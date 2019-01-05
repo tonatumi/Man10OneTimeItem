@@ -1,5 +1,6 @@
 package red.man10.man10onetimeiitem;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -21,7 +22,6 @@ public class Events implements Listener {
     public void onPlayerInteract(PlayerInteractEvent e){
         BoxInfo boxinfo = new BoxInfo();
         Player p = e.getPlayer();
-        p.sendMessage(p.getInventory().getItemInMainHand().getItemMeta().toString());
         boolean flag = false;
         if(e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction()==Action.RIGHT_CLICK_BLOCK){
             ItemStack items = p.getInventory().getItemInMainHand() ;
@@ -60,7 +60,8 @@ public class Events implements Listener {
     public int countEmpty (Inventory inv){
         int count =0;
         for(ItemStack invitem:inv){
-            if(invitem.getType() == Material.AIR){
+            Bukkit.broadcastMessage(invitem.toString());
+            if(invitem == null){
                 count++;
             }
         }
