@@ -113,7 +113,7 @@ public final class Man10OneTimeItem extends JavaPlugin {
                     }
                     else {
                         boxdata.remove(args[1]);
-                        p.sendMessage(prefix + "§aボックス"+args[1]+"を削除しました!");
+                        p.sendMessage(prefix + "§aボックス"+"§f"+args[1]+"§aを削除しました!");
                         return true;
                     }
                 case "list":
