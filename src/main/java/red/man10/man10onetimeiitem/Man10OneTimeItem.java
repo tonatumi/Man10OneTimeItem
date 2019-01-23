@@ -113,6 +113,7 @@ public final class Man10OneTimeItem extends JavaPlugin {
                     }
                     else {
                         boxdata.remove(args[1]);
+                        p.sendMessage(prefix + "§aボックス"+args[1]+"を削除しました!");
                         return true;
                     }
                 case "list":
@@ -171,8 +172,9 @@ public final class Man10OneTimeItem extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
-        saveDefaultConfig();
+        this.saveDefaultConfig();
         FileConfiguration config = getConfig();
+        this.reloadConfig();
         getLogger().info("start:Man10OneTimeItem");
         getServer().getPluginManager().registerEvents(new Events(this), this);
 
@@ -181,6 +183,7 @@ public final class Man10OneTimeItem extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        this.saveConfig();
         getLogger().info("stop:Man10OneTimeItem");
     }
 }
