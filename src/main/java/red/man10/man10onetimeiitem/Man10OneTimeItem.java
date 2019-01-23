@@ -2,6 +2,7 @@ package red.man10.man10onetimeiitem;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -29,19 +30,23 @@ public final class Man10OneTimeItem extends JavaPlugin {
             p.sendMessage("§6§l/moti itemlist [BOX名]§r:[BOX名]のアイテムリストを表示");
             p.sendMessage("§6§l/moti get [BOX名]§r:[BOX名]を取得");
 
-        }else {
+        }
+        else {
             switch (args[0]) {
                 case "create":
                     if(args.length == 1) {
                         p.sendMessage(prefix + "§cボックス名を入力してください。");
                         return true;
-                    }else if(args.length >3){
+                    }
+                    else if(args.length >3){
                         p.sendMessage(prefix+"§c引数が長すぎます！");
                         return true;
-                    }else if(boxdata.containsKey(args[1])) {
+                    }
+                    else if(boxdata.containsKey(args[1])) {
                         p.sendMessage(prefix+"§cそのボックス名は既に存在しています！");
                         return true;
-                    }else {
+                    }
+                    else {
                         String boxname = args[1];
                         ItemStack box = p.getInventory().getItemInMainHand();
                         BoxInfo boxinfo = new BoxInfo();
@@ -54,16 +59,19 @@ public final class Man10OneTimeItem extends JavaPlugin {
                     if (args.length == 1) {
                         p.sendMessage(prefix + "§cボックス名を入力してください");
                         return true;
-                    }else if(args.length >3){
+                    }
+                    else if(args.length >3){
                         p.sendMessage(prefix+"§c引数が長すぎます！");
                         return true;
-                    }else if(boxdata.containsKey(args[1])){
+                    }
+                    else if(boxdata.containsKey(args[1])){
                         BoxInfo boxinfo = boxdata.get(args[1]);
                         boxinfo.contentsItems.add(p.getInventory().getItemInMainHand());
                         boxdata.put(args[1], boxinfo);
                         p.sendMessage(prefix+"§aアイテムを追加しました！");
                         return true;
-                    } else {
+                    }
+                    else {
                         p.sendMessage(prefix+"§cそのボックス名は存在しません！");
                         return true;
                     }
@@ -71,10 +79,12 @@ public final class Man10OneTimeItem extends JavaPlugin {
                     if (args.length == 1) {
                         p.sendMessage(prefix + "§cボックス名を入力してください");
                         return true;
-                    }else if (args.length >3) {
+                    }
+                    else if (args.length >3) {
                         p.sendMessage(prefix+"§c引数が長すぎます！");
                         return true;
-                    }else if (boxdata.containsKey(args[1])){
+                    }
+                    else if (boxdata.containsKey(args[1])){
                         BoxInfo boxinfo = boxdata.get(args[1]);
                         int rnum;
                         try {
@@ -87,7 +97,8 @@ public final class Man10OneTimeItem extends JavaPlugin {
                         boxdata.put(args[1], boxinfo);
                         p.sendMessage(prefix+"§aボックス名§6"+args[1]+"§aからアイテム番号"+"§6"+args[2]+"§aを削除しました！");
                         return true;
-                    }else {
+                    }
+                    else {
                         p.sendMessage(prefix+"§cそのボックス名は存在しません！");
                         return true;
                     }
@@ -95,10 +106,12 @@ public final class Man10OneTimeItem extends JavaPlugin {
                     if (args.length == 1) {
                         p.sendMessage(prefix + "§cボックス名を入力してください");
                         return true;
-                    }else if(args.length >3){
+                    }
+                    else if(args.length >3){
                         p.sendMessage(prefix+"§c引数が長すぎます！");
                         return true;
-                    }else {
+                    }
+                    else {
                         boxdata.remove(args[1]);
                         return true;
                     }
@@ -106,7 +119,8 @@ public final class Man10OneTimeItem extends JavaPlugin {
                     if(args.length >2){
                         p.sendMessage(prefix+"§c引数が長すぎます！");
                         return true;
-                    }else {
+                    }
+                    else {
                         p.sendMessage("-------ボックスリスト-------");
                         boxdata.forEach((key, value) -> p.sendMessage(key));
                         return true;
@@ -115,9 +129,11 @@ public final class Man10OneTimeItem extends JavaPlugin {
                     if (args.length == 1) {
                         p.sendMessage(prefix + "§cボックス名を入力してください");
                         return true;
-                    }else if (args.length >3){
+                    }
+                    else if (args.length >3){
                         p.sendMessage(prefix+"§c引数が長すぎます！");
-                    }else{
+                    }
+                    else{
                         p.sendMessage(prefix+args[1]+"の中身");
                         int i =0;
                         for(ItemStack itemlist:boxdata.get(args[1]).contentsItems) {
@@ -134,10 +150,12 @@ public final class Man10OneTimeItem extends JavaPlugin {
                     if(args.length == 1) {
                         p.sendMessage(prefix + "§cボックス名を入力してください");
                         return true;
-                    }else if (args.length >3){
+                    }
+                    else if (args.length >3){
                         p.sendMessage(prefix+"§c引数が長すぎます！");
                         return true;
-                    }else {
+                    }
+                    else {
                         p.getInventory().addItem(boxdata.get(args[1]).boxItem);
                     return true;
                     }
@@ -153,6 +171,8 @@ public final class Man10OneTimeItem extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
+        saveDefaultConfig();
+        FileConfiguration config = getConfig();
         getLogger().info("start:Man10OneTimeItem");
         getServer().getPluginManager().registerEvents(new Events(this), this);
 

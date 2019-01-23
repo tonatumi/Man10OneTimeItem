@@ -44,14 +44,16 @@ public class Events implements Listener {
                 }
                 if(p.getInventory().getItemInMainHand().getAmount()!=1){
                     p.getInventory().getItemInMainHand().setAmount(p.getInventory().getItemInMainHand().getAmount()-1);
-                }else {
+                }
+                else {
                         p.getInventory().setItemInMainHand(null);
                 }
                 for(ItemStack giveitem:boxinfo.contentsItems){
                     p.getInventory().addItem(giveitem);
                 }
                 return;
-            }else{
+            }
+            else{
                 return;
             }
         }
